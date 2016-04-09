@@ -5,6 +5,7 @@
     xmlns:local="using:Soundboard"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Soundboard.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -37,8 +38,16 @@
                    OpenPaneLength="200">
             <SplitView.Pane>
                 <ListView Name="MenuItemsListView" IsItemClickEnabled="True" 
-                          ItemClick="MenuItemsListView_ItemClick">
-                    
+                          ItemClick="MenuItemsListView_ItemClick"
+                          ItemsSource="{x:Bind MenuItems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="data:MenuItem">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{x:Bind IconFile}" Height="25" Width="45" />
+                                <TextBlock Text="{x:Bind Category}" FontSize="18" Margin="10,0,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </SplitView.Pane>
             <Grid>
@@ -50,10 +59,10 @@
                 <TextBlock Name="CategoryTextBlock" Text="All Sounds" FontSize="24" />
                 <GridView Grid.Row="1" Name="SoundGridView" 
                           SelectionMode="None" IsItemClickEnabled="True" 
-                          ItemClick="SoundGridView_ItemClick">
+                          ItemClick="SoundGridView_ItemClick" ItemsSource="{x:Bind sounds}">
                     <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <Image Name="MyImage" Height="112" Width="101" />
+                        <DataTemplate x:DataType="data:Sound">
+                            <Image Name="MyImage" Source="{x:Bind ImageFile}"  Height="112" Width="101" />
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
