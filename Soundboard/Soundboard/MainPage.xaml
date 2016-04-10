@@ -26,7 +26,7 @@
                     Content="&#xE0A6;"
                     Height="45"
                     Width="45"
-                    FontSize="20"/>
+                    FontSize="20" Click="BackButton_Click"/>
             <AutoSuggestBox Name="SearchAutoSuggestBox" PlaceholderText="Search for sounds" 
                             Width="200" QueryIcon="Find"  
                             RelativePanel.AlignRightWithPanel="True"
@@ -43,14 +43,18 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="data:MenuItem">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{x:Bind IconFile}" Height="25" Width="45" />
-                                <TextBlock Text="{x:Bind Category}" FontSize="18" Margin="10,0,0,0" />
+                                <Image Source="{x:Bind IconFile}" 
+                                       Height="25" Width="45" 
+                                       Margin="-10,0,0,0"/>
+                                <TextBlock Text="{x:Bind Category}" 
+                                           FontSize="18" Margin="10,0,0,0" 
+                                           VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </SplitView.Pane>
-            <Grid>
+            <Grid Margin="20,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -59,6 +63,7 @@
                 <TextBlock Name="CategoryTextBlock" Text="All Sounds" FontSize="24" />
                 <GridView Grid.Row="1" Name="SoundGridView" 
                           SelectionMode="None" IsItemClickEnabled="True" 
+                          AllowDrop="True" Drop="SoundGridView_Drop" DragOver="SoundGridView_DragOver"
                           ItemClick="SoundGridView_ItemClick" ItemsSource="{x:Bind sounds}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Sound">

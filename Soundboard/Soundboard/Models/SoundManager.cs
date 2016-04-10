@@ -43,5 +43,14 @@ namespace Soundboard.Models
 
             return sounds;
         }
+
+        public static void GetSoundsByName(ObservableCollection<Sound> observableSounds, string name)
+        {
+            var allSounds = GetSounds();
+            var filteredSounds = allSounds.Where(p => p.Name == name).ToList();
+            observableSounds.Clear();
+
+            filteredSounds.ForEach(s => observableSounds.Add(s));
+        }
     }
 }
